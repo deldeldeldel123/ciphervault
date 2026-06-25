@@ -230,10 +230,10 @@ if mode == "Encrypt":
             st.success("🔒 Encryption Complete")
 
            st.text_area(
-    "Encrypted Message",
+           "Encrypted Message",
     value=encrypted.decode(),
     height=180
-)
+            )
 
             st.balloons()
 
