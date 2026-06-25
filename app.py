@@ -131,7 +131,12 @@ header {
 }
 
 
-
+/* Output text areas */
+textarea[disabled] {
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    border: 1px solid #00ffcc !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -229,11 +234,12 @@ if mode == "Encrypt":
 
             st.success("🔒 Encryption Complete")
 
-           st.text_area(
-           "Encrypted Message",
+        st.text_area(
+    "Ciphertext",
     value=encrypted.decode(),
-    height=180
-            )
+    height=180,
+    disabled=True
+)
 
             st.balloons()
 
@@ -287,10 +293,11 @@ else:
 
                 st.success("🔓 Decryption Complete")
 
-           st.text_area(
-    "Decrypted Message",
+        st.text_area(
+    "Plaintext",
     value=decrypted.decode(),
-    height=180
+    height=180,
+    disabled=True
 )
 
             except:
