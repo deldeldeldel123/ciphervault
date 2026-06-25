@@ -15,13 +15,13 @@ st.set_page_config(
 )
 
 # =====================================
-# CYBER CSS
+# CUSTOM CSS
 # =====================================
 
 st.markdown("""
 <style>
 
-/* Main background */
+/* Background */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(
         135deg,
@@ -45,97 +45,62 @@ header {
     text-shadow:
         0 0 5px #00ffcc,
         0 0 10px #00ffcc,
-        0 0 20px #00ffcc,
-        0 0 40px #00ffcc;
-    margin-top: 20px;
+        0 0 20px #00ffcc;
 }
 
 /* Subtitle */
 .sub-title {
     text-align: center;
-    color: #b0b0b0;
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-}
-
-/* Digital banner */
-.digital-banner {
-    color: #00ffcc;
-    font-family: monospace;
-    text-align: center;
-    font-size: 0.9rem;
+    color: #c0c0c0;
     margin-bottom: 20px;
 }
 
-/* Result box */
-.result-box {
-    border: 1px solid #00ffcc;
-    border-radius: 10px;
-    padding: 15px;
-    background: rgba(0,255,204,0.05);
-}
-
-/* Footer */
-.footer {
+/* Banner */
+.digital-banner {
     text-align: center;
-    color: gray;
-    margin-top: 20px;
+    color: #00ffcc;
+    font-family: monospace;
+    margin-bottom: 20px;
 }
 
 /* Buttons */
 .stButton button {
-    background-color: #00ffcc;
-    color: black;
+    background-color: #00ffcc !important;
+    color: black !important;
     font-weight: bold;
     border-radius: 8px;
     border: none;
 }
 
-/* Input fields */
-/* Text input */
+/* Inputs */
 .stTextInput input {
     background-color: #111827 !important;
     color: white !important;
     border: 1px solid #00ffcc !important;
 }
 
-/* Text area */
 .stTextArea textarea {
     background-color: #111827 !important;
     color: white !important;
     border: 1px solid #00ffcc !important;
 }
 
-/* Placeholder text */
-.stTextInput input::placeholder,
-.stTextArea textarea::placeholder {
-    color: #888888 !important;
-}
-
-
-/* Password eye button background */
-[data-testid="stTextInput"] button {
-    background-color: #111827 !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* Password eye icon colour */
-[data-testid="stTextInput"] button svg {
-    fill: #00ffcc !important;
-}
-
-/* Hover state */
-[data-testid="stTextInput"] button:hover {
-    background-color: rgba(0,255,204,0.1) !important;
-}
-
-
-/* Output text areas */
+/* Disabled text areas (results) */
 textarea[disabled] {
     background-color: #111827 !important;
-    color: #ffffff !important;
+    color: white !important;
     border: 1px solid #00ffcc !important;
+}
+
+/* Eye icon */
+[data-testid="stTextInput"] button {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+[data-testid="stTextInput"] button svg {
+    fill: #00ffcc !important;
+    color: #00ffcc !important;
 }
 
 </style>
@@ -187,7 +152,7 @@ password = st.text_input(
 )
 
 # =====================================
-# ENCRYPT
+# ENCRYPT MODE
 # =====================================
 
 if mode == "Encrypt":
@@ -226,6 +191,7 @@ if mode == "Encrypt":
                     time.sleep(0.05)
 
             key = password_to_key(password)
+
             f = Fernet(key)
 
             encrypted = f.encrypt(
@@ -234,17 +200,17 @@ if mode == "Encrypt":
 
             st.success("🔒 Encryption Complete")
 
-        st.text_area(
-    "Ciphertext",
-    value=encrypted.decode(),
-    height=180,
-    disabled=True
-)
+            st.text_area(
+                "Ciphertext",
+                value=encrypted.decode(),
+                height=180,
+                disabled=True
+            )
 
             st.balloons()
 
 # =====================================
-# DECRYPT
+# DECRYPT MODE
 # =====================================
 
 else:
@@ -285,6 +251,7 @@ else:
             try:
 
                 key = password_to_key(password)
+
                 f = Fernet(key)
 
                 decrypted = f.decrypt(
@@ -293,12 +260,12 @@ else:
 
                 st.success("🔓 Decryption Complete")
 
-        st.text_area(
-    "Plaintext",
-    value=decrypted.decode(),
-    height=180,
-    disabled=True
-)
+                st.text_area(
+                    "Plaintext",
+                    value=decrypted.decode(),
+                    height=180,
+                    disabled=True
+                )
 
             except:
 
@@ -306,7 +273,11 @@ else:
                     "Invalid password or encrypted message."
                 )
 
+# =====================================
+# FOOTER
+# =====================================
 
+st.divider()
 
 st.caption(
     "Built by Del Ho | Python • Cryptography • Streamlit"
