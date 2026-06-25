@@ -23,16 +23,15 @@ st.markdown("""
 
 /* Main background */
 [data-testid="stAppViewContainer"] {
-    background:
-        linear-gradient(
-            135deg,
-            #000000 0%,
-            #07111f 40%,
-            #001f3f 100%
-        ) !important;
+    background: linear-gradient(
+        135deg,
+        #000000 0%,
+        #07111f 40%,
+        #001f3f 100%
+    ) !important;
 }
 
-/* Hide default header */
+/* Hide Streamlit header */
 header {
     visibility: hidden;
 }
@@ -43,13 +42,11 @@ header {
     font-size: 4rem;
     font-weight: 800;
     color: #00ffcc;
-
     text-shadow:
         0 0 5px #00ffcc,
         0 0 10px #00ffcc,
         0 0 20px #00ffcc,
         0 0 40px #00ffcc;
-
     margin-top: 20px;
 }
 
@@ -70,7 +67,7 @@ header {
     margin-bottom: 20px;
 }
 
-/* Results box */
+/* Result box */
 .result-box {
     border: 1px solid #00ffcc;
     border-radius: 10px;
@@ -94,15 +91,10 @@ header {
     border: none;
 }
 
-/* Text boxes */
+/* Input fields */
 .stTextInput input,
 .stTextArea textarea {
     border: 1px solid #00ffcc !important;
-}
-
-/* Radio labels */
-.stRadio label {
-    color: white !important;
 }
 
 </style>
@@ -125,11 +117,7 @@ st.markdown(
 st.markdown(
     """
     <div class="digital-banner">
-    01001010 10110101 01101001 11010101
-    •
-    AES ENCRYPTION ACTIVE
-    •
-    SHA-256 KEY DERIVATION
+    01001010 10110101 01101001 11010101 • AES ENCRYPTION ACTIVE • SHA-256 KEY DERIVATION
     </div>
     """,
     unsafe_allow_html=True
@@ -140,13 +128,8 @@ st.markdown(
 # =====================================
 
 def password_to_key(password):
-    digest = hashlib.sha256(
-        password.encode()
-    ).digest()
-
-    return base64.urlsafe_b64encode(
-        digest
-    )
+    digest = hashlib.sha256(password.encode()).digest()
+    return base64.urlsafe_b64encode(digest)
 
 # =====================================
 # MODE SELECTION
@@ -183,7 +166,6 @@ if mode == "Encrypt":
         else:
 
             status = st.empty()
-
             progress = st.progress(0)
 
             steps = [
@@ -199,40 +181,21 @@ if mode == "Encrypt":
                 status.info(steps[i])
 
                 for p in range(20):
-
-                    progress.progress(
-                        i * 20 + p + 1
-                    )
-
+                    progress.progress(i * 20 + p + 1)
                     time.sleep(0.05)
 
-            key = password_to_key(
-                password
-            )
-
+            key = password_to_key(password)
             f = Fernet(key)
 
             encrypted = f.encrypt(
                 message.encode()
             )
 
-            st.success(
-                "🔒 Encryption Complete"
-            )
-
-            st.markdown(
-                '<div class="result-box">',
-                unsafe_allow_html=True
-            )
+            st.success("🔒 Encryption Complete")
 
             st.code(
                 encrypted.decode(),
                 language=None
-            )
-
-            st.markdown(
-                '</div>',
-                unsafe_allow_html=True
             )
 
             st.balloons()
@@ -258,7 +221,6 @@ else:
         else:
 
             status = st.empty()
-
             progress = st.progress(0)
 
             steps = [
@@ -271,47 +233,26 @@ else:
 
             for i in range(5):
 
-                status.info(
-                    steps[i]
-                )
+                status.info(steps[i])
 
                 for p in range(20):
-
-                    progress.progress(
-                        i * 20 + p + 1
-                    )
-
+                    progress.progress(i * 20 + p + 1)
                     time.sleep(0.05)
 
             try:
 
-                key = password_to_key(
-                    password
-                )
-
+                key = password_to_key(password)
                 f = Fernet(key)
 
                 decrypted = f.decrypt(
                     encrypted_message.encode()
                 )
 
-                st.success(
-                    "🔓 Decryption Complete"
-                )
-
-                st.markdown(
-                    '<div class="result-box">',
-                    unsafe_allow_html=True
-                )
+                st.success("🔓 Decryption Complete")
 
                 st.code(
                     decrypted.decode(),
                     language=None
-                )
-
-                st.markdown(
-                    '</div>',
-                    unsafe_allow_html=True
                 )
 
             except:
@@ -328,8 +269,7 @@ st.divider()
 
 st.subheader("How CipherVault Works")
 
-st.markdown("""
-```text
+st.code("""
 Password
     ↓
 SHA-256 Hash
@@ -339,3 +279,8 @@ Encryption Key
 Fernet Encryption
     ↓
 Ciphertext
+""", language=None)
+
+st.caption(
+    "Built by Del Ho | Python • Cryptography • Streamlit"
+)
