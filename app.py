@@ -103,6 +103,18 @@ textarea[disabled] {
     color: #00ffcc !important;
 }
 
+/* Code block */
+pre {
+    background-color: #111827 !important;
+    color: white !important;
+    border: 1px solid #00ffcc !important;
+    border-radius: 8px !important;
+}
+
+code {
+    color: #ffffff !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -200,12 +212,10 @@ if mode == "Encrypt":
 
             st.success("🔒 Encryption Complete")
 
-            st.text_area(
-                "Ciphertext",
-                value=encrypted.decode(),
-                height=180,
-                disabled=True
-            )
+           st.code(
+    encrypted.decode(),
+    language=None
+                  )
 
             st.balloons()
 
