@@ -22,7 +22,12 @@ st.markdown("""
 <style>
 
 .stApp {
-    background-color: #0d1117;
+   background: linear-gradient(
+        135deg,
+        #050505,
+        #0d1117,
+        #001f3f
+    );
 }
 
 .main-title {
