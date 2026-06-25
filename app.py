@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import hashlib
 import base64
 import time
@@ -212,10 +213,34 @@ if mode == "Encrypt":
 
             st.success("🔒 Encryption Complete")
 
-            st.code(
-                encrypted.decode(),
-                language=None
-             )
+            cipher_text = encrypted.decode()
+
+            st.text_area(
+                "Ciphertext",
+                value=cipher_text,
+                height=180,
+                disabled=True
+            )
+
+            components.html(
+            f"""
+            <button
+        onclick="navigator.clipboard.writeText(`{cipher_text}`)"
+        style="
+            background:black;
+            color:white;
+            border:2px solid white;
+            padding:10px 20px;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+            margin-top:10px;
+        ">
+        📋 COPY CIPHERTEXT
+    </button>
+    """,
+    height=60
+)
 
             st.balloons()
 
