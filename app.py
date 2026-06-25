@@ -229,10 +229,11 @@ if mode == "Encrypt":
 
             st.success("🔒 Encryption Complete")
 
-            st.code(
-                encrypted.decode(),
-                language=None
-            )
+           st.text_area(
+    "Encrypted Message",
+    value=encrypted.decode(),
+    height=180
+)
 
             st.balloons()
 
@@ -286,10 +287,11 @@ else:
 
                 st.success("🔓 Decryption Complete")
 
-                st.code(
-                    decrypted.decode(),
-                    language=None
-                )
+           st.text_area(
+    "Decrypted Message",
+    value=decrypted.decode(),
+    height=180
+)
 
             except:
 
