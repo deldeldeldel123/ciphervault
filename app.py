@@ -283,7 +283,7 @@ else:
                     progress.progress(i * 20 + p + 1)
                     time.sleep(0.05)
 
-                    try:
+        try:
 
             key = password_to_key(password)
 
