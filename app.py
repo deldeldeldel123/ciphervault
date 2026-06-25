@@ -276,25 +276,7 @@ else:
                     "Invalid password or encrypted message."
                 )
 
-# =====================================
-# EXPLANATION PANEL
-# =====================================
 
-st.divider()
-
-st.subheader("How CipherVault Works")
-
-st.code("""
-Password
-    ↓
-SHA-256 Hash
-    ↓
-Encryption Key
-    ↓
-Fernet Encryption
-    ↓
-Ciphertext
-""", language=None)
 
 st.caption(
     "Built by Del Ho | Python • Cryptography • Streamlit"
