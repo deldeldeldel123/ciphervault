@@ -92,9 +92,24 @@ header {
 }
 
 /* Input fields */
-.stTextInput input,
-.stTextArea textarea {
+/* Text input */
+.stTextInput input {
+    background-color: #111827 !important;
+    color: white !important;
     border: 1px solid #00ffcc !important;
+}
+
+/* Text area */
+.stTextArea textarea {
+    background-color: #111827 !important;
+    color: white !important;
+    border: 1px solid #00ffcc !important;
+}
+
+/* Placeholder text */
+.stTextInput input::placeholder,
+.stTextArea textarea::placeholder {
+    color: #888888 !important;
 }
 
 </style>
