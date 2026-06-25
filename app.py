@@ -212,10 +212,10 @@ if mode == "Encrypt":
 
             st.success("🔒 Encryption Complete")
 
-           st.code(
-    encrypted.decode(),
-    language=None
-                  )
+            st.code(
+                encrypted.decode(),
+                language=None
+             )
 
             st.balloons()
 
