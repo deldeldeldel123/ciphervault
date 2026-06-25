@@ -75,12 +75,6 @@ def password_to_key(password):
     return base64.urlsafe_b64encode(digest)
 
 
-def play_audio(filename):
-    try:
-        with open(filename, "rb") as f:
-            st.audio(f.read())
-    except:
-        pass
 
 
 # -----------------------------
@@ -116,7 +110,7 @@ if mode == "Encrypt":
 
         else:
 
-            play_audio("lock.mp3")
+            
 
             status = st.empty()
 
@@ -176,7 +170,7 @@ else:
 
         else:
 
-            play_audio("unlock.mp3")
+            
 
             status = st.empty()
 
