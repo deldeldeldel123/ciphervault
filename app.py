@@ -4,57 +4,113 @@ import base64
 import time
 from cryptography.fernet import Fernet
 
-# -----------------------------
+# =====================================
 # PAGE CONFIG
-# -----------------------------
+# =====================================
 
 st.set_page_config(
     page_title="CipherVault",
     page_icon="🔒",
-    layout="centered"
+    layout="wide"
 )
 
-# -----------------------------
-# STYLING
-# -----------------------------
+# =====================================
+# CYBER CSS
+# =====================================
 
 st.markdown("""
 <style>
 
-.stApp {
-   background: linear-gradient(
-        135deg,
-        #050505,
-        #0d1117,
-        #001f3f
-    );
+/* Main background */
+[data-testid="stAppViewContainer"] {
+    background:
+        linear-gradient(
+            135deg,
+            #000000 0%,
+            #07111f 40%,
+            #001f3f 100%
+        ) !important;
 }
 
+/* Hide default header */
+header {
+    visibility: hidden;
+}
+
+/* Main title */
 .main-title {
     text-align: center;
+    font-size: 4rem;
+    font-weight: 800;
     color: #00ffcc;
-    font-size: 3rem;
-    font-weight: bold;
+
+    text-shadow:
+        0 0 5px #00ffcc,
+        0 0 10px #00ffcc,
+        0 0 20px #00ffcc,
+        0 0 40px #00ffcc;
+
+    margin-top: 20px;
 }
 
+/* Subtitle */
 .sub-title {
     text-align: center;
-    color: #aaaaaa;
-    margin-bottom: 25px;
+    color: #b0b0b0;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
 }
 
-.cyber-box {
+/* Digital banner */
+.digital-banner {
+    color: #00ffcc;
+    font-family: monospace;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* Results box */
+.result-box {
     border: 1px solid #00ffcc;
-    padding: 20px;
-    border-radius: 12px;
+    border-radius: 10px;
+    padding: 15px;
+    background: rgba(0,255,204,0.05);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: gray;
+    margin-top: 20px;
+}
+
+/* Buttons */
+.stButton button {
+    background-color: #00ffcc;
+    color: black;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+}
+
+/* Text boxes */
+.stTextInput input,
+.stTextArea textarea {
+    border: 1px solid #00ffcc !important;
+}
+
+/* Radio labels */
+.stRadio label {
+    color: white !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
+# =====================================
 # HEADER
-# -----------------------------
+# =====================================
 
 st.markdown(
     '<div class="main-title">🔒 CipherVault</div>',
@@ -66,28 +122,38 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.code(
-    "01001010 10110101 01101001 11010101 11100011 00110011",
-    language=None
+st.markdown(
+    """
+    <div class="digital-banner">
+    01001010 10110101 01101001 11010101
+    •
+    AES ENCRYPTION ACTIVE
+    •
+    SHA-256 KEY DERIVATION
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
-# -----------------------------
-# HELPER FUNCTIONS
-# -----------------------------
+# =====================================
+# FUNCTIONS
+# =====================================
 
 def password_to_key(password):
-    digest = hashlib.sha256(password.encode()).digest()
-    return base64.urlsafe_b64encode(digest)
+    digest = hashlib.sha256(
+        password.encode()
+    ).digest()
 
+    return base64.urlsafe_b64encode(
+        digest
+    )
 
-
-
-# -----------------------------
-# USER INPUT
-# -----------------------------
+# =====================================
+# MODE SELECTION
+# =====================================
 
 mode = st.radio(
-    "Mode",
+    "Choose Mode",
     ["Encrypt", "Decrypt"]
 )
 
@@ -96,9 +162,9 @@ password = st.text_input(
     type="password"
 )
 
-# -----------------------------
-# ENCRYPT MODE
-# -----------------------------
+# =====================================
+# ENCRYPT
+# =====================================
 
 if mode == "Encrypt":
 
@@ -106,16 +172,15 @@ if mode == "Encrypt":
         "Message to Encrypt"
     )
 
-    if st.button("🔒 Encrypt"):
+    if st.button("🔒 Encrypt Message"):
 
         if not password or not message:
+
             st.warning(
                 "Please enter a password and message."
             )
 
         else:
-
-            
 
             status = st.empty()
 
@@ -134,10 +199,16 @@ if mode == "Encrypt":
                 status.info(steps[i])
 
                 for p in range(20):
-                    progress.progress(i * 20 + p + 1)
+
+                    progress.progress(
+                        i * 20 + p + 1
+                    )
+
                     time.sleep(0.05)
 
-            key = password_to_key(password)
+            key = password_to_key(
+                password
+            )
 
             f = Fernet(key)
 
@@ -146,7 +217,12 @@ if mode == "Encrypt":
             )
 
             st.success(
-                "Encryption Complete"
+                "🔒 Encryption Complete"
+            )
+
+            st.markdown(
+                '<div class="result-box">',
+                unsafe_allow_html=True
             )
 
             st.code(
@@ -154,11 +230,16 @@ if mode == "Encrypt":
                 language=None
             )
 
+            st.markdown(
+                '</div>',
+                unsafe_allow_html=True
+            )
+
             st.balloons()
 
-# -----------------------------
-# DECRYPT MODE
-# -----------------------------
+# =====================================
+# DECRYPT
+# =====================================
 
 else:
 
@@ -166,16 +247,15 @@ else:
         "Encrypted Message"
     )
 
-    if st.button("🔓 Decrypt"):
+    if st.button("🔓 Decrypt Message"):
 
         if not password or not encrypted_message:
+
             st.warning(
                 "Please enter a password and encrypted message."
             )
 
         else:
-
-            
 
             status = st.empty()
 
@@ -191,15 +271,23 @@ else:
 
             for i in range(5):
 
-                status.info(steps[i])
+                status.info(
+                    steps[i]
+                )
 
                 for p in range(20):
-                    progress.progress(i * 20 + p + 1)
+
+                    progress.progress(
+                        i * 20 + p + 1
+                    )
+
                     time.sleep(0.05)
 
             try:
 
-                key = password_to_key(password)
+                key = password_to_key(
+                    password
+                )
 
                 f = Fernet(key)
 
@@ -208,12 +296,22 @@ else:
                 )
 
                 st.success(
-                    "Decryption Complete"
+                    "🔓 Decryption Complete"
+                )
+
+                st.markdown(
+                    '<div class="result-box">',
+                    unsafe_allow_html=True
                 )
 
                 st.code(
                     decrypted.decode(),
                     language=None
+                )
+
+                st.markdown(
+                    '</div>',
+                    unsafe_allow_html=True
                 )
 
             except:
@@ -222,8 +320,22 @@ else:
                     "Invalid password or encrypted message."
                 )
 
+# =====================================
+# EXPLANATION PANEL
+# =====================================
+
 st.divider()
 
-st.caption(
-    "Built by Del Ho | Python • Streamlit • Cryptography"
-)
+st.subheader("How CipherVault Works")
+
+st.markdown("""
+```text
+Password
+    ↓
+SHA-256 Hash
+    ↓
+Encryption Key
+    ↓
+Fernet Encryption
+    ↓
+Ciphertext
