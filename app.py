@@ -112,6 +112,27 @@ header {
     color: #888888 !important;
 }
 
+
+/* Password eye button background */
+[data-testid="stTextInput"] button {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Password eye icon colour */
+[data-testid="stTextInput"] button svg {
+    fill: #00ffcc !important;
+}
+
+/* Hover state */
+[data-testid="stTextInput"] button:hover {
+    background-color: rgba(0,255,204,0.1) !important;
+}
+
+
+
+
 </style>
 """, unsafe_allow_html=True)
 
