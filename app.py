@@ -283,52 +283,52 @@ else:
                     progress.progress(i * 20 + p + 1)
                     time.sleep(0.05)
 
-            try:
+                    try:
 
-                key = password_to_key(password)
+            key = password_to_key(password)
 
-                f = Fernet(key)
+            f = Fernet(key)
 
-                decrypted = f.decrypt(
-                    encrypted_message.encode()
-                )
+            decrypted = f.decrypt(
+                encrypted_message.encode()
+            )
 
-                st.success("🔓 Decryption Complete")
+            st.success("🔓 Decryption Complete")
 
-                plain_text = decrypted.decode()
+            plain_text = decrypted.decode()
 
-                st.text_area(
+            st.text_area(
                 "Plaintext (Select and copy)",
                 value=plain_text,
                 height=180,
                 key="plain_output"
-                )
+            )
 
             components.html(
-            f"""
-     <button
-        onclick="navigator.clipboard.writeText(`{plain_text}`)"
-        style="
-            background:black;
-            color:white;
-            border:2px solid white;
-            padding:10px 20px;
-            border-radius:8px;
-            font-weight:bold;
-            cursor:pointer;
-            margin-top:10px;
-        ">
-        📋 COPY PLAINTEXT
-    </button>
-    """,
-    height=60
-)
-            except:
+                f"""
+                <button
+                    onclick="navigator.clipboard.writeText(`{plain_text}`)"
+                    style="
+                        background:black;
+                        color:white;
+                        border:2px solid white;
+                        padding:10px 20px;
+                        border-radius:8px;
+                        font-weight:bold;
+                        cursor:pointer;
+                        margin-top:10px;
+                    ">
+                    📋 COPY PLAINTEXT
+                </button>
+                """,
+                height=60
+            )
 
-                st.error(
-                    "Invalid password or encrypted message."
-                )
+        except:
 
+            st.error(
+                "Invalid password or encrypted message."
+            )
 # =====================================
 # FOOTER
 # =====================================
