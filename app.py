@@ -115,7 +115,7 @@ header {
 
 /* Password eye button background */
 [data-testid="stTextInput"] button {
-    background-color: transparent !important;
+    background-color: #111827 !important;
     border: none !important;
     box-shadow: none !important;
 }
