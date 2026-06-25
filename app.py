@@ -242,7 +242,7 @@ if mode == "Encrypt":
     height=60
 )
 
-            st.balloons()
+         
 
 # =====================================
 # DECRYPT MODE
