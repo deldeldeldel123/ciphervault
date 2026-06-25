@@ -295,13 +295,34 @@ else:
 
                 st.success("🔓 Decryption Complete")
 
+                plain_text = decrypted.decode()
+
                 st.text_area(
-                    "Plaintext",
-                    value=decrypted.decode(),
-                    height=180,
-                    disabled=True
+                "Plaintext (Select and copy)",
+                value=plain_text,
+                height=180,
+                key="plain_output"
                 )
 
+            components.html(
+            f"""
+     <button
+        onclick="navigator.clipboard.writeText(`{plain_text}`)"
+        style="
+            background:black;
+            color:white;
+            border:2px solid white;
+            padding:10px 20px;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+            margin-top:10px;
+        ">
+        📋 COPY PLAINTEXT
+    </button>
+    """,
+    height=60
+)
             except:
 
                 st.error(
